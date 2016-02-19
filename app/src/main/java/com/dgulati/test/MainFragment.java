@@ -15,6 +15,8 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 
 public class MainFragment extends Fragment {
@@ -79,13 +81,11 @@ public class MainFragment extends Fragment {
             super.onPageStarted(view, url, favicon);
             pb.setVisibility(View.VISIBLE);
             ll.setVisibility(View.VISIBLE);
-            Log.d("TheURL", "ShouldGEtVisible");
-
         }
 
         public boolean shouldOverrideUrlLoading(WebView wv, final String url) {
             // TODO Auto-generated method stub
-            Log.d("TheURL", url);
+            Log.d("TheUL", url);
 
             boolean b = wv.getSettings().getJavaScriptEnabled();
             Log.d("TheURL", String.valueOf(b));
@@ -124,13 +124,33 @@ public class MainFragment extends Fragment {
             CookieManager.setAcceptFileSchemeCookies(true);
             Log.d("Cookie",url);
             try {
-                String cookie = CookieManager.getInstance().getCookie(url);
-                Log.d("Cookie", cookie) ;
-                Log.d("Cookie", "Saved") ;
+                String somethingelse = "";
+                int id_len;
+                String user = "";
+                String profile = "";
+                String decode_prof = "";
+                somethingelse = getCookie(url,"id-xamp");
+               // id_len=somethingelse.length();
+               // somethingelse.substring(4,id_len-4);
+
+                Log.d("result","id = "+somethingelse);
+                user = getCookie(url,"username-xamp");
+                Log.d("result","user = "+user);
+                profile = getCookie(url,"profile");
+                if(profile!=null){
+                    try {
+                        decode_prof = URLDecoder.decode(profile, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+                Log.d("result","profile = "+decode_prof
+                );
+
             }catch(Exception e){
                 Log.d("CookieEx", e.getMessage()) ;
              }
-             //Log.d("Cookie",cookie);
+           //  Log.d("Cookie",cookie);
 
 
             return true;
@@ -163,26 +183,26 @@ public class MainFragment extends Fragment {
 
     }
 
-//    private String getCookie(String siteName,String CookieName){
-//        String CookieValue = null;
-//        String[] temp = null ;
-//
-//        CookieManager cookieManager = CookieManager.getInstance();
-//        String cookies = cookieManager.getCookie(siteName);
-//        try {
-//          temp = cookies.split(";");
-//        }catch (Exception e){
-//            Log.d("Cookie", e.getMessage()) ;
-//        }
-//
-//        for (String ar1 : temp ){
-//            if(ar1.contains(CookieName)){
-//                String[] temp1=ar1.split("=");
-//                CookieValue = temp1[1];
-//            }
-//        }
-//        return CookieValue;
-//    }
+    private String getCookie(String siteName,String CookieName){
+        String CookieValue = null;
+        String[] temp = null ;
+
+        CookieManager cookieManager = CookieManager.getInstance();
+        String cookies = cookieManager.getCookie(siteName);
+        try {
+          temp = cookies.split(";");
+        }catch (Exception e){
+            Log.d("Cookie", e.getMessage()) ;
+        }
+
+        for (String ar1 : temp ){
+            if(ar1.contains(CookieName)){
+                String[] temp1=ar1.split("=");
+                CookieValue = temp1[1];
+            }
+        }
+        return CookieValue;
+    }
 
 }
 
