@@ -24,7 +24,7 @@ public class MainFragment extends Fragment {
     View v;
     LinearLayout ll;
     String dfgh;
-    MainActivity ma;
+
 
 
 
@@ -47,10 +47,8 @@ public class MainFragment extends Fragment {
         ourBrowser = (WebView) v.findViewById(R.id.wvBrowser);
         pb = (ProgressBar) v.findViewById(R.id.progressBar);
         ll = (LinearLayout) v.findViewById(R.id.lallan);
-        ma = new MainActivity();
 
 
-       // v.setFocusableInTouchMode(true);
         CookieManager.setAcceptFileSchemeCookies(true);
 
         ourBrowser.getSettings().setLoadWithOverviewMode(true);
@@ -63,6 +61,8 @@ public class MainFragment extends Fragment {
 
         try {
             ourBrowser.loadUrl("http://xampaperz.com");
+         //String cookieStart = CookieManager.getInstance().getCookie("http://xampaperz.com") ;
+           //Log.d("Cookie", cookieStart) ;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,6 +90,8 @@ public class MainFragment extends Fragment {
             boolean b = wv.getSettings().getJavaScriptEnabled();
             Log.d("TheURL", String.valueOf(b));
             dfgh = "http://xampaperz.com/college/exams/xampaperz/paper-viewer.php";
+
+
 
             if (url.length() > 59) {
                 if (url.substring(0, 61).equals(dfgh)) {
@@ -119,6 +121,17 @@ public class MainFragment extends Fragment {
                 });
 
             }
+            CookieManager.setAcceptFileSchemeCookies(true);
+            Log.d("Cookie",url);
+            try {
+                String cookie = CookieManager.getInstance().getCookie(url);
+                Log.d("Cookie", cookie) ;
+                Log.d("Cookie", "Saved") ;
+            }catch(Exception e){
+                Log.d("CookieEx", e.getMessage()) ;
+             }
+             //Log.d("Cookie",cookie);
+
 
             return true;
 
@@ -150,6 +163,26 @@ public class MainFragment extends Fragment {
 
     }
 
+//    private String getCookie(String siteName,String CookieName){
+//        String CookieValue = null;
+//        String[] temp = null ;
+//
+//        CookieManager cookieManager = CookieManager.getInstance();
+//        String cookies = cookieManager.getCookie(siteName);
+//        try {
+//          temp = cookies.split(";");
+//        }catch (Exception e){
+//            Log.d("Cookie", e.getMessage()) ;
+//        }
+//
+//        for (String ar1 : temp ){
+//            if(ar1.contains(CookieName)){
+//                String[] temp1=ar1.split("=");
+//                CookieValue = temp1[1];
+//            }
+//        }
+//        return CookieValue;
+//    }
 
 }
 
