@@ -5,7 +5,7 @@ import android.webkit.WebChromeClient;
 import android.widget.Toast;
 
 /**
- * Created by Dheer on 19-02-2016.
+ * Created by Dheer on 19-02-2016. jhsgjhg
  */
 public class JavaScriptINterface extends WebChromeClient{
     Context mContext;
