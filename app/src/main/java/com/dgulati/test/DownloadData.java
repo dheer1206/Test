@@ -15,8 +15,8 @@ public class DownloadData {
 
     Context mContext ;
 
-    public DownloadData(Context context){
-        this.mContext = context ;
+    public DownloadData(Context ccontext){
+        this.mContext = ccontext ;
     }
 
     public void startDownload(String temp){
