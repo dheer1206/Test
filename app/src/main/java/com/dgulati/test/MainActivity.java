@@ -41,8 +41,8 @@ MainFragment fragment_main ;
 
     }
 
-    public void setWv(WebView wv) {
-        this.webview = wv;
+    public void setWv(WebView wwv) {
+        this.webview = wwv;
     }
 
     @Override
